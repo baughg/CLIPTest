@@ -1,3 +1,10 @@
+Install OPenAI CLIP model
+python -m venv .venv
+.venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install sentence-transformers==2.6.1 ipython==8.23.0 matplotlib==3.8.4 numpy==1.26.4
+
+
 Package               Version
 --------------------- -----------
 asttokens             2.4.1
