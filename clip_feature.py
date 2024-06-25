@@ -105,9 +105,15 @@ while 1:
     my_file.close() 
 
     img_names = []
+    valid_images = []
 
     for file_name in data_into_list :
-        img_names.append(img_list_root + file_name)
+        full_filepath = img_list_root + file_name
+        
+        if os.path.isfile(full_filepath) :
+            img_names.append(full_filepath)
+            valid_images.append(file_name)
+
     
 
 # img_names = list(glob.glob(f'{data_path}*.jpg'))
@@ -117,3 +123,9 @@ while 1:
 
     img_emb_np = img_emb.numpy()
     np.save(output_root + "features.npy",img_emb_np)
+    
+    my_file = open(output_root + "valid_images.txt", "w") 
+
+    for file_name in valid_images:
+        my_file.write(file_name + '\n')
+    my_file.close() 
