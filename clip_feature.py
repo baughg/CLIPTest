@@ -83,8 +83,8 @@ while 1:
     if not data:
         break
 
-    conn.sendall(data)
-    
+    conn.sendall(data)   
+    conn.close() 
     command_array = str(data,'utf-8').split('#')
     img_list = command_array[0]
     img_list_root = command_array[1]
@@ -98,10 +98,8 @@ while 1:
     
     # replacing end of line('/n') with ' ' and 
     # splitting the text it further when '.' is seen. 
-    data_into_list = data_l.split("\n") 
+    data_into_list = data_l.split("\n")     
     
-    # printing the data 
-    print(data_into_list) 
     my_file.close() 
 
     img_names = []
@@ -115,8 +113,6 @@ while 1:
             valid_images.append(file_name)
 
     
-
-# img_names = list(glob.glob(f'{data_path}*.jpg'))
     print("Images:", len(img_names))
     img_emb = img_model.encode([Image.open(filepath) for filepath in img_names], batch_size=128, convert_to_tensor=True, show_progress_bar=True)
     img_emb.shape, type(img_emb)
@@ -129,3 +125,8 @@ while 1:
     for file_name in valid_images:
         my_file.write(file_name + '\n')
     my_file.close() 
+
+    my_file = open(output_root + "control.txt", "w") 
+    my_file.write('DONE')        
+    my_file.close()
+    
